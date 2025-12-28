@@ -77,13 +77,15 @@ const BACKGROUND_FADE_START = Math.max(
 );
 
 const TYPED_LINES = [
-  "> tina",
+  "> Hello Honey 💕🎂🎈",
   "...",
-  "> today is your birthday",
+  "> Today marks another beautiful year of your incredible journey",
   "...",
-  "> so i made you this computer program",
+  "> I've crafted this interactive experience just for you",
   "...",
-  "٩(◕‿◕)۶ ٩(◕‿◕)۶ ٩(◕‿◕)۶"
+  "> Happy Birthday! 🎂✨",
+  "...",
+  // "> Press space to continue your celebration"
 ];
 const TYPED_CHAR_DELAY = 100;
 const POST_TYPING_SCENE_DELAY = 1000;
@@ -537,6 +539,9 @@ export default function App() {
             );
           })}
         </div>
+        {!hasStarted && (
+          <div className="space-hint">press space to start</div>
+        )}
       </div>
       {hasAnimationCompleted && isCandleLit && (
         <div className="hint-overlay">press space to blow out the candle</div>

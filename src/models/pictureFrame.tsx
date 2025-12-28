@@ -16,7 +16,6 @@ type PictureFrameProps = ThreeElements["group"] & {
   image: string;
   imageScale?: number | [number, number];
   imageOffset?: [number, number, number];
-  imageInset?: number;
 };
 
 const DEFAULT_IMAGE_SCALE: [number, number] = [0.82, 0.82];
@@ -25,7 +24,6 @@ export function PictureFrame({
   image,
   imageScale = DEFAULT_IMAGE_SCALE,
   imageOffset,
-  imageInset = 0.01,
   children,
   ...groupProps
 }: PictureFrameProps) {
