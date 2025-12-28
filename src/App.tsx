@@ -15,6 +15,7 @@ import { Candle } from "./models/candle";
 import { Cake } from "./models/cake";
 import { Table } from "./models/table";
 import { PictureFrame } from "./models/pictureFrame";
+import { Flower } from "./models/flower";
 import { Fireworks } from "./components/Fireworks";
 import { BirthdayCard } from "./components/BirthdayCard";
 
@@ -302,6 +303,15 @@ function AnimatedScene({
             onToggle={onToggleCard}
           />
         ))}
+        {/* Flowers around the table */}
+        <Flower position={[2.5, 0, 2.5]} petalColor="#ff69b4" centerColor="#ffd700" scale={3} />
+        <Flower position={[-2.5, 0, 2.5]} petalColor="#ff1493" centerColor="#ffa500" scale={3} />
+        <Flower position={[2.5, 0, -2.5]} petalColor="#dc143c" centerColor="#ffff00" scale={3} />
+        <Flower position={[-2.5, 0, -2.5]} petalColor="#ff6347" centerColor="#ff69b4" scale={3} />
+        <Flower position={[3.5, 0, 0]} petalColor="#ffb6c1" centerColor="#daa520" scale={3} />
+        <Flower position={[-3.5, 0, 0]} petalColor="#ff69b4" centerColor="#ff4500" scale={3} />
+        <Flower position={[0, 0, 3.5]} petalColor="#ff1493" centerColor="#ffd700" scale={3} />
+        <Flower position={[0, 0, -3.5]} petalColor="#dc143c" centerColor="#ffa500" scale={3} />
       </group>
       <group ref={cakeGroup}>
         <Cake />
