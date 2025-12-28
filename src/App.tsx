@@ -380,6 +380,7 @@ export default function App() {
   const [isCandleLit, setIsCandleLit] = useState(true);
   const [fireworksActive, setFireworksActive] = useState(false);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const backgroundAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -391,6 +392,15 @@ export default function App() {
       audio.pause();
       backgroundAudioRef.current = null;
     };
+  }, []);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window);
+    };
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
   const playBackgroundMusic = useCallback(() => {
@@ -505,9 +515,29 @@ export default function App() {
       }
     };
 
+    const handleTouchStart = () => {
+      if (!hasStarted) {
+        playBackgroundMusic();
+        setHasStarted(true);
+        return;
+      }
+      if (hasAnimationCompleted && isCandleLit) {
+        setIsCandleLit(false);
+        setFireworksActive(true);
+      }
+    };
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [hasStarted, hasAnimationCompleted, isCandleLit, playBackgroundMusic]);
+    if (isMobile) {
+      window.addEventListener("touchstart", handleTouchStart);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      if (isMobile) {
+        window.removeEventListener("touchstart", handleTouchStart);
+      }
+    };
+  }, [hasStarted, hasAnimationCompleted, isCandleLit, playBackgroundMusic, isMobile]);
 
   const handleCardToggle = useCallback((id: string) => {
     setActiveCardId((current) => (current === id ? null : id));
@@ -540,11 +570,11 @@ export default function App() {
           })}
         </div>
         {!hasStarted && (
-          <div className="space-hint">press space to start</div>
+          <div className="space-hint">{isMobile ? "tap to start" : "press space to start"}</div>
         )}
       </div>
       {hasAnimationCompleted && isCandleLit && (
-        <div className="hint-overlay">press space to blow out the candle</div>
+        <div className="hint-overlay">{isMobile ? "tap to blow out the candle" : "press space to blow out the candle"}</div>
       )}
       <Canvas
         gl={{ alpha: true }}
