@@ -308,6 +308,10 @@ function AnimatedScene({
       </group>
       <group ref={candleGroup}>
         <Candle isLit={candleLit} scale={0.25} position={[0, 1.1, 0]} />
+        <Candle isLit={candleLit} scale={0.2} position={[0.25, 1.05, 0.15]} />
+        <Candle isLit={candleLit} scale={0.2} position={[-0.25, 1.05, 0.15]} />
+        <Candle isLit={candleLit} scale={0.2} position={[0.15, 1.05, -0.25]} />
+        <Candle isLit={candleLit} scale={0.2} position={[-0.15, 1.05, -0.25]} />
       </group>
     </>
   );
@@ -546,7 +550,7 @@ export default function App() {
   const isScenePlaying = hasStarted && sceneStarted;
 
   return (
-    <div className="App">
+    <div className={`App ${typingComplete ? 'typing-complete' : ''}`}>
       <div
         className="background-overlay"
         style={{ opacity: backgroundOpacity }}
